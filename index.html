@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRY 業務フロー図</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Montserrat:wght@300;400;600;700;900&display=swap');
+
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #161616;
+    --surface3: #1c1c1c;
+    --border: #242424;
+    --border2: #2e2e2e;
+    --accent: #c8a96e;
+    --accent-dim: rgba(200,169,110,0.15);
+    --text: #e4ddd3;
+    --text-muted: #6a6055;
+    --text-sub: #9a9085;
+    --shuto: #c8a96e;
+    --shuto-dim: rgba(200,169,110,0.1);
+    --zastin: #6e9ec8;
+    --zastin-dim: rgba(110,158,200,0.1);
+    --issei: #6ec896;
+    --issei-dim: rgba(110,200,150,0.1);
+    --external: #9e6ec8;
+    --external-dim: rgba(158,110,200,0.1);
+    --ai: #7a9aaa;
+    --ai-dim: rgba(122,154,170,0.1);
+    --live: #c8a96e;
+    --all: #555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', 'Noto Serif JP', sans-serif;
+    min-height: 100vh;
+    padding: 56px 30px 80px;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+
+  .header .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.55em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(24px, 3.5vw, 38px);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .header .sub {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+  }
+
+  /* ─── LEGEND ─── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    justify-content: center;
+    margin-bottom: 64px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    color: var(--text-sub);
+  }
+
+  .legend-pip {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .sec {
+    max-width: 1700px;
+    margin: 0 auto 72px;
+  }
+
+  .sec-head {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .sec-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── TEAM CARDS ─── */
+  .team-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .team-row-1 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .team-row-2 { display: flex; gap: 8px; }
+  .team-row-2 .member-card { width: calc(25% - 6px); flex-shrink: 0; }
+
+  .member-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .member-header {
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .member-card.shuto .member-header { background: var(--shuto-dim); border-left: 3px solid var(--shuto); }
+  .member-card.zastin .member-header { background: var(--zastin-dim); border-left: 3px solid var(--zastin); }
+  .member-card.issei .member-header { background: var(--issei-dim); border-left: 3px solid var(--issei); }
+  .member-card.ai .member-header { background: var(--ai-dim); border-left: 3px solid var(--ai); }
+  .member-card.external .member-header { background: var(--external-dim); border-left: 3px solid var(--external); }
+
+  .member-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .member-card.shuto .member-name { color: var(--shuto); }
+  .member-card.zastin .member-name { color: var(--zastin); }
+  .member-card.issei .member-name { color: var(--issei); }
+  .member-card.ai .member-name { color: var(--ai); }
+  .member-card.external .member-name { color: var(--external); }
+
+  .member-role {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .member-hours {
+    position: absolute;
+    top: 18px; right: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* Task groups inside card */
+  .task-groups {
+    padding: 16px 22px 20px;
+  }
+
+  .task-group {
+    margin-bottom: 14px;
+  }
+
+  .task-group:last-child { margin-bottom: 0; }
+
+  .tg-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tg-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .tg-badge {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 2px 5px;
+    border-radius: 1px;
+    margin-left: 4px;
+  }
+
+  .member-card.shuto .tg-badge { background: var(--shuto-dim); color: var(--shuto); }
+  .member-card.zastin .tg-badge { background: var(--zastin-dim); color: var(--zastin); }
+  .member-card.issei .tg-badge { background: var(--issei-dim); color: var(--issei); }
+  .member-card.ai .tg-badge { background: var(--ai-dim); color: var(--ai); }
+  .member-card.external .tg-badge { background: var(--external-dim); color: var(--external); }
+
+  .task-list {
+    list-style: none;
+  }
+
+  .task-item {
+    font-size: 11.5px;
+    color: var(--text);
+    line-height: 1.5;
+    padding: 3.5px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .task-item::before {
+    content: '–';
+    color: var(--border2);
+    flex-shrink: 0;
+    font-size: 10px;
+    margin-top: 2px;
+  }
+
+  .task-sub {
+    padding-left: 16px;
+    margin-top: 2px;
+  }
+
+  .task-sub .task-item {
+    font-size: 10.5px;
+    color: var(--text-sub);
+    padding: 2px 0;
+  }
+
+  .task-sub .task-item::before {
+    content: '·';
+    font-size: 12px;
+    margin-top: 0;
+  }
+
+  .tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 1px 5px;
+    border-radius: 1px;
+    margin-left: 4px;
+    white-space: nowrap;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .tag.moving { background: rgba(200,169,110,0.15); color: var(--accent); }
+  .tag.new { background: rgba(110,200,150,0.15); color: var(--issei); }
+
+  /* ─── FLOW DIAGRAM ─── */
+  .flow-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 40px 36px;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+  }
+
+  .flow-node {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .flow-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 16px 15px;
+    margin: 0 7px;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+
+  .flow-box:hover { border-color: var(--border2); }
+
+  .flow-box.shuto { border-top: 2px solid var(--shuto); }
+  .flow-box.zastin { border-top: 2px solid var(--zastin); }
+  .flow-box.issei { border-top: 2px solid var(--issei); }
+  .flow-box.all { border-top: 2px solid var(--all); }
+  .flow-box.live {
+    border-top: 2px solid var(--accent);
+    background: rgba(200,169,110,0.05);
+  }
+
+  .flow-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .flow-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+  }
+
+  .flow-box.shuto .flow-title { color: var(--shuto); }
+  .flow-box.zastin .flow-title { color: var(--zastin); }
+  .flow-box.issei .flow-title { color: var(--issei); }
+  .flow-box.all .flow-title { color: var(--text); }
+  .flow-box.live .flow-title { color: var(--accent); font-weight: 700; }
+
+  .flow-who {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .flow-box.shuto .flow-who { color: rgba(200,169,110,0.5); }
+  .flow-box.zastin .flow-who { color: rgba(110,158,200,0.5); }
+  .flow-box.issei .flow-who { color: rgba(110,200,150,0.5); }
+  .flow-box.all .flow-who { color: var(--text-muted); }
+  .flow-box.live .flow-who { color: rgba(200,169,110,0.5); }
+
+  .flow-desc {
+    font-size: 10.5px;
+    color: var(--text-sub);
+    line-height: 1.7;
+  }
+
+  .flow-arrow-v {
+    text-align: center;
+    font-size: 18px;
+    color: var(--border2);
+    padding: 10px 0;
+  }
+
+  .flow-arrow-h {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--border2);
+    font-size: 14px;
+    flex-shrink: 0;
+    padding: 0 2px;
+    margin-top: 28px;
+  }
+
+  /* ─── WEEKLY TABLE ─── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+
+  .day-col {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .day-head {
+    padding: 9px 6px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-col.mon .day-head { background: rgba(200,169,110,0.12); color: var(--shuto); }
+  .day-col.tue .day-head { background: rgba(110,158,200,0.1); color: var(--zastin); }
+  .day-col.wed .day-head { background: rgba(200,169,110,0.06); color: rgba(200,169,110,0.5); }
+  .day-col.thu .day-head { background: rgba(110,200,150,0.1); color: var(--issei); }
+  .day-col.fri .day-head { background: rgba(200,110,110,0.1); color: #c88a6e; }
+  .day-col.sat .day-head { background: rgba(255,255,255,0.03); color: var(--text-muted); }
+  .day-col.sun .day-head { background: rgba(255,255,255,0.02); color: var(--border2); }
+
+  .day-events { padding: 9px 7px; }
+
+  .ev {
+    font-size: 10px;
+    padding: 4px 7px;
+    margin-bottom: 4px;
+    border-radius: 1px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+
+  .ev.S { background: rgba(200,169,110,0.09); color: var(--text); border-left: 2px solid var(--shuto); }
+  .ev.Z { background: rgba(110,158,200,0.09); color: var(--text); border-left: 2px solid var(--zastin); }
+  .ev.I { background: rgba(110,200,150,0.09); color: var(--text); border-left: 2px solid var(--issei); }
+  .ev.A { background: rgba(255,255,255,0.04); color: var(--text-sub); border-left: 2px solid var(--all); }
+  .ev.L { background: rgba(200,169,110,0.16); color: var(--accent); border-left: 2px solid var(--accent); font-weight: 600; }
+
+  /* ─── CUSTOMER TORUS ─── */
+  .torus-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 40px 36px 28px;
+  }
+
+  .torus-nodes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .torus-node {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .torus-n {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .torus-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .torus-desc {
+    font-size: 10.5px;
+    color: var(--text-sub);
+    line-height: 1.7;
+  }
+
+  .torus-arrow {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: rgba(200,169,110,0.3);
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  /* ─── KPI GRID ─── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 14px;
+    border-radius: 2px;
+    text-align: center;
+  }
+
+  .kpi-v {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 7px;
+  }
+
+  .kpi-l {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .week-grid { grid-template-columns: repeat(5, 1fr); }
+    .day-col.sat, .day-col.sun { display: none; }
+    .torus-nodes { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 28px 16px 60px; }
+    .team-wrap { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: repeat(3, 1fr); }
+    .day-col.thu, .day-col.sat, .day-col.sun { display: none; }
+    .flow-row { flex-direction: column; }
+    .flow-arrow-h { display: none; }
+    .flow-node { width: 100%; }
+    .flow-box { margin: 4px 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .sec { animation: fadeUp 0.65s ease both; }
+  .sec:nth-child(2) { animation-delay: 0.05s; }
+  .sec:nth-child(3) { animation-delay: 0.12s; }
+  .sec:nth-child(4) { animation-delay: 0.18s; }
+  .sec:nth-child(5) { animation-delay: 0.24s; }
+  .sec:nth-child(6) { animation-delay: 0.30s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="eyebrow">PRY Inc. — Internal Operations</div>
+  <h1>Team Workflow</h1>
+  <div class="sub">株式会社PRY — 役割分担・タスク構造・週次リズム</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-pip" style="background:var(--shuto)"></div><span style="color:var(--shuto)">Shuto（CEO / 零点 / 最終判断）</span></div>
+  <div class="legend-item"><div class="legend-pip" style="background:var(--zastin)"></div><span style="color:var(--zastin)">Zastin（コンテンツ・制作翻訳）</span></div>
+  <div class="legend-item"><div class="legend-pip" style="background:var(--issei)"></div><span style="color:var(--issei)">Issei（裏側運用・生産管理）</span></div>
+  <div class="legend-item"><div class="legend-pip" style="background:var(--external)"></div><span style="color:var(--external)">PRYパートナー</span></div>
+  <div class="legend-item"><div class="legend-pip" style="background:var(--border2)"></div><span>チーム全体</span></div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 01 TEAM STRUCTURE -->
+<!-- ================================================================ -->
+<div class="sec">
+  <div class="sec-head">01 — Team Structure / チーム体制</div>
+  <div class="team-wrap">
+  <div class="team-row-1">
+
+    <!-- SHUTO -->
+    <div class="member-card shuto">
+      <div class="member-header">
+        <div class="member-name">Shuto（中西 柊斗）</div>
+        <div class="member-role">美しさの零点</div>
+      </div>
+      <div class="task-groups">
+
+        <div class="task-group">
+          <div class="tg-label">BE<span class="tg-badge">存在・役割</span></div>
+          <ul class="task-list">
+            <li class="task-item">零点（Zero Point）</li>
+            <li class="task-item">美しさを定義し、美しさを立ち上がらせる</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">THINK<span class="tg-badge">判断・設計</span></div>
+          <ul class="task-list">
+            <li class="task-item">ビジョン・哲学・ブランドの核定義</li>
+            <li class="task-item">事業戦略・優先順位の決定</li>
+            <li class="task-item">組織設計・役割分担の設計</li>
+            <li class="task-item">コレクション・プロダクト・コンテンツ設計</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">DO<span class="tg-badge">実行・出演</span></div>
+          <ul class="task-list">
+            <li class="task-item">水曜：完全一人デー（設計・インプット専念）</li>
+            <li class="task-item">YouTube出演（動画週4〜6本・LIVE）</li>
+            <li class="task-item">外部MTG・デザインの最終判断</li>
+            <li class="task-item">週次全体MTG・1on1（be→think→do→haveの循環評価）</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">HAVE<span class="tg-badge">成果・評価</span></div>
+          <ul class="task-list">
+            <li class="task-item">全ての判断を直感に委ねているか</li>
+            <li class="task-item">常に美しい零点として存在しているか</li>
+            <li class="task-item">零点の引力でチームと顧客が循環しているか</li>
+            <li class="task-item">Shutoが手を動かす場面が限りなくゼロか<br>（0→1・最終決断のみ）</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ZASTIN -->
+    <div class="member-card zastin">
+      <div class="member-header">
+        <div class="member-name">Zastin（ザスティン）</div>
+        <div class="member-role">美しい"提案"の体現 / オンライン成果物の責任</div>
+      </div>
+      <div class="task-groups">
+
+        <div class="task-group">
+          <div class="tg-label">BE<span class="tg-badge">存在・役割</span></div>
+          <ul class="task-list">
+            <li class="task-item">Shutoの美意識に対する1番の理解者</li>
+            <li class="task-item">PRYの美意識を顧客に浸透させる翻訳者</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">THINK<span class="tg-badge">判断・設計</span></div>
+          <ul class="task-list">
+            <li class="task-item">Shutoの美意識との接続</li>
+            <li class="task-item">PRYの言語理解と拡大（200%に翻訳）</li>
+            <li class="task-item">ユーザー感情設計（スケジュール〜デザイン）</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">DO<span class="tg-badge">制作・実行</span></div>
+          <ul class="task-list">
+
+            <li class="task-item">定点観測・フィールドワーク</li>
+            <li class="task-item">コンテンツスケジュール設計</li>
+            <li class="task-item">台本・スタイリング設計</li>
+            <li class="task-item">サムネ・ムービー制作</li>
+            <li class="task-item">コンテンツ修正・更新</li>
+            <li class="task-item">EC写真一次評価</li>
+            <li class="task-item">VLOG制作</li>
+            <li class="task-item">告知配信 / 顧客対応</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">HAVE<span class="tg-badge">成果・KPI</span></div>
+          <ul class="task-list">
+            <li class="task-item">Shutoの言語習得数 / 週</li>
+            <li class="task-item">公開遅延ゼロ / 週</li>
+            <li class="task-item">Shuto台本&amp;サムネ修正時間 10分以内 / 件</li>
+            <li class="task-item">YouTube月間登録者1万人以上維持</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ISSEI -->
+    <div class="member-card issei">
+      <div class="member-header">
+        <div class="member-name">Issei（壱成）</div>
+        <div class="member-role">美しい"管理"の体現 / 管理→運用→評価の責任</div>
+      </div>
+      <div class="task-groups">
+
+        <div class="task-group">
+          <div class="tg-label">BE<span class="tg-badge">存在・役割</span></div>
+          <ul class="task-list">
+            <li class="task-item">モノ / データ / スケジュール の独立管理者</li>
+            <li class="task-item">管理→運用→評価の循環を加速させる</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">THINK<span class="tg-badge">設計・判断</span></div>
+          <ul class="task-list">
+            <li class="task-item">全生産背景との循環設計</li>
+            <li class="task-item">モノの整理基準の設計</li>
+            <li class="task-item">データ評価の基準定義と設計</li>
+            <li class="task-item">月間・週間工程表の逆算設計</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">DO<span class="tg-badge">管理・運用</span></div>
+          <ul class="task-list">
+            <li class="task-item">全生産窓口の一元管理・拡大</li>
+            <li class="task-item">モノ・備品・データ・ボードの管理更新</li>
+            <li class="task-item">工程表の管理運用・Shuto一人時間増加</li>
+            <li class="task-item">EC運用・コピー・QA・受注管理</li>
+            <li class="task-item">イベント企画調整・当日運営</li>
+            <li class="task-item">公式LINE運営</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">HAVE<span class="tg-badge">成果・KPI</span></div>
+          <ul class="task-list">
+            <li class="task-item">Shutoが管理・連絡に手と口を出していないか（Shuto一人時間増加 / 週）</li>
+            <li class="task-item">モノ / データ / スケジュール / ボード が常に最新状態に保たれているか（更新遅延ゼロ）</li>
+            <li class="task-item">新規生産背景の拡大 / 月</li>
+            <li class="task-item">生産背景との事故ゼロ / 月</li>
+            <li class="task-item">EC公開事故ゼロ / 月</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- AI -->
+    <div class="member-card ai">
+      <div class="member-header">
+        <div class="member-hours">第四の社員</div>
+        <div class="member-name">AI（人工知能）</div>
+        <div class="member-role">思考加速・実務自動化装置</div>
+      </div>
+      <div class="task-groups">
+
+        <div class="task-group">
+          <div class="tg-label">BE<span class="tg-badge">存在・定義</span></div>
+          <ul class="task-list">
+            <li class="task-item">PRY全体の思考/データを体系化する。</li>
+            <li class="task-item">PRYのアウトプットを加速させる。</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">THINK<span class="tg-badge">分析・示唆</span></div>
+          <ul class="task-list">
+            <li class="task-item">全メンバーの思考（MEMO・文字起こし）を体系化</li>
+            <li class="task-item">KPIデータ（Shopify・YouTube・GA4・LINE）を体系化</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">DO<span class="tg-badge">自動化・実行</span></div>
+          <ul class="task-list">
+            <li class="task-item">[全員] rules自動更新 / 文字起こし整形・管理</li>
+            <li class="task-item">[Shuto] 戦略壁打ち・レポート / フロー図の初稿生成</li>
+            <li class="task-item">[Zastin] 台本・告知文の初稿生成</li>
+            <li class="task-item">[Issei] 販売・分析データ整形 / KPIレポート初稿生成 / LIVE分析・コメント傾向抽出</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">HAVE<span class="tg-badge">稼働・品質</span></div>
+          <ul class="task-list">
+            <li class="task-item">メンバーの制作時間短縮・アウトプット強化</li>
+            <li class="task-item">自動処理の稼働率100% / 週</li>
+            <li class="task-item">美しさの判断に介入していないか（介入ゼロ）</li>
+            <li class="task-item">人間のインプットなしで単独生成していないか（単独生成ゼロ）</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /team-row-1 -->
+  <div class="team-row-2">
+    <!-- EXTERNAL -->
+    <div class="member-card external">
+      <div class="member-header">
+        <div class="member-name">PRYパートナー</div>
+        <div class="member-role">専門領域サポート</div>
+      </div>
+      <div class="task-groups">
+
+        <div class="task-group">
+          <div class="tg-label">社内（間接）</div>
+          <ul class="task-list">
+            <li class="task-item">菜津美 — 経理・CFO（財務・法務・雇用手続き）</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">コンテンツ・デザイン</div>
+          <ul class="task-list">
+            <li class="task-item">柵木さん — パタンナー</li>
+            <li class="task-item">minoru — グラフィックデザイン</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">撮影・編集</div>
+          <ul class="task-list">
+            <li class="task-item">平永さん — ムービー撮影補助・編集・40代モデル</li>
+            <li class="task-item">角田さん — スチール撮影</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">顧客対応</div>
+          <ul class="task-list">
+            <li class="task-item">シンジさん — 公式LINE主軸（PGND. 一次対応）</li>
+          </ul>
+        </div>
+
+        <div class="task-group">
+          <div class="tg-label">生産職人チーム</div>
+          <ul class="task-list">
+            <li class="task-item">株式会社CO（アラキさん） — オーダースーツ製作</li>
+            <li class="task-item">株式会社CO（トールさん） — ジュエリー製作</li>
+            <li class="task-item">SR UNITED（岡本さん） — 工場・縫製・生産管理（レザーアパレル以外）</li>
+            <li class="task-item">株式会社PLANE（宮田さん） — 工場・縫製・生産管理（レザーアパレルのみ）</li>
+            <li class="task-item">Early Mile（小嶋さん） — レザーブーツ（ハンドクラフトのみ）</li>
+            <li class="task-item">新潟fetish（板倉さん） — レザーバッグ（ハンドクラフトのみ）</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /team-row-2 -->
+  </div><!-- /team-wrap -->
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 02 MAIN FLOW -->
+<!-- ================================================================ -->
+<div class="sec">
+  <div class="sec-head">02 — Main Business Flow / 週次業務フロー</div>
+  <div class="flow-wrap">
+
+    <!-- Row 1 -->
+    <div class="flow-row">
+      <div class="flow-node">
+        <div class="flow-box shuto">
+          <div class="flow-num">Step 01</div>
+          <div class="flow-who">Shuto</div>
+          <div class="flow-title">プロダクト設計・企画決定</div>
+          <div class="flow-desc">ビジョン・素材・パターンを0→1で設計。購入前に企画を確定。0.1mm単位のこだわり。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box issei">
+          <div class="flow-num">Step 02</div>
+          <div class="flow-who">Issei</div>
+          <div class="flow-title">生産発注・スケジュール設計</div>
+          <div class="flow-desc">職人チームへ発注。週間工程表を引く。サンプル確認・品質チェック・納期逆算。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box shuto">
+          <div class="flow-num">Step 03</div>
+          <div class="flow-who">Shuto</div>
+          <div class="flow-title">サンプル最終承認</div>
+          <div class="flow-desc">審美眼で仕上がりを確認。NG時はIssei経由で差し戻し・再調整。承認後に量産確定。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow-v">↓</div>
+
+    <!-- Row 2 -->
+    <div class="flow-row">
+      <div class="flow-node">
+        <div class="flow-box zastin">
+          <div class="flow-num">Step 04</div>
+          <div class="flow-who">Zastin</div>
+          <div class="flow-title">台本初稿・コンテンツ企画</div>
+          <div class="flow-desc">プロダクトを理解し台本初稿を制作。構成案をShutoへ提案。AI台本は完全廃止。一次情報主体。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box shuto">
+          <div class="flow-num">Step 05</div>
+          <div class="flow-who">Shuto</div>
+          <div class="flow-title">台本核・最終仕上げ</div>
+          <div class="flow-desc">Shutoの肉声で台本に核を入れる。Zastinの初稿を「顧客の言語」にまで引き上げる。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box zastin">
+          <div class="flow-num">Step 06</div>
+          <div class="flow-who">Zastin</div>
+          <div class="flow-title">撮影ディレクション・サムネ</div>
+          <div class="flow-desc">月曜撮影（8時〜）。スタイリング・ディレクション担当。50%段階で中間確認。木曜中にサムネ完成。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow-v">↓</div>
+
+    <!-- Row 3 -->
+    <div class="flow-row">
+      <div class="flow-node">
+        <div class="flow-box zastin">
+          <div class="flow-num">Step 07</div>
+          <div class="flow-who">Zastin</div>
+          <div class="flow-title">EC商品ページ・告知制作</div>
+          <div class="flow-desc">ECコピー初稿を制作。商品公開前QAで事故を止める。告知文作成・予約配信設定。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box live">
+          <div class="flow-num">Step 08</div>
+          <div class="flow-who">Shuto + Zastin + Issei</div>
+          <div class="flow-title">月曜 LIVE → 限定受注</div>
+          <div class="flow-desc">毎週月曜 20:30 LIVE配信。21:00〜22:00の1時間限定受注。完全受注生産でリスクゼロ。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box issei">
+          <div class="flow-num">Step 09</div>
+          <div class="flow-who">Issei</div>
+          <div class="flow-title">受注確認・生産指示</div>
+          <div class="flow-desc">受注数を確認。生産背景へ最終発注。納期を逆算してスケジュール設計。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow-v">↓</div>
+
+    <!-- Row 4 -->
+    <div class="flow-row">
+      <div class="flow-node">
+        <div class="flow-box issei">
+          <div class="flow-num">Step 10</div>
+          <div class="flow-who">Issei</div>
+          <div class="flow-title">出荷・納品管理</div>
+          <div class="flow-desc">出荷スケジュール管理。顧客への納期通知・遅延メール対応。月1まとめ発送。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box issei">
+          <div class="flow-num">Step 11</div>
+          <div class="flow-who">Issei</div>
+          <div class="flow-title">データ分析・改善提案</div>
+          <div class="flow-desc">火曜：販売・YouTube分析をボードで発表。直近3ヶ月3回購入者数をKPI。改善提案を月2件以上。</div>
+        </div>
+      </div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node">
+        <div class="flow-box all">
+          <div class="flow-num">Step 12</div>
+          <div class="flow-who">チーム全体</div>
+          <div class="flow-title">週次振り返り → 次サイクルへ</div>
+          <div class="flow-desc">金曜で週を締める。毎朝30分朝礼で当日の優先順位を定義。次週の企画設計に入る。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 03 WEEKLY RHYTHM -->
+<!-- ================================================================ -->
+<div class="sec">
+  <div class="sec-head">03 — Weekly Rhythm / 週次リズム</div>
+  <div class="week-grid">
+
+    <div class="day-col mon">
+      <div class="day-head">Mon</div>
+      <div class="day-events">
+        <div class="ev A">9:00 始業・朝礼30分</div>
+        <div class="ev S">8:00〜 撮影開始（最大6h）</div>
+        <div class="ev Z">撮影補助・ディレクション</div>
+        <div class="ev I">ECページ完成・アイテム管理</div>
+        <div class="ev L">20:30 LIVE配信</div>
+        <div class="ev L">21:00〜22:00 限定受注</div>
+        <div class="ev I">受注監視・ボード再設計</div>
+      </div>
+    </div>
+
+    <div class="day-col tue">
+      <div class="day-head">Tue</div>
+      <div class="day-events">
+        <div class="ev A">9:00 始業・朝礼</div>
+        <div class="ev Z">台本最終版制作</div>
+        <div class="ev Z">PRYトーク撮影参加</div>
+        <div class="ev Z">園田さん撮影（10時〜）</div>
+        <div class="ev I">販売・YT分析ボード発表</div>
+        <div class="ev I">サンプル進行確認・量産指示</div>
+      </div>
+    </div>
+
+    <div class="day-col wed">
+      <div class="day-head">Wed</div>
+      <div class="day-events">
+        <div class="ev S">Shuto 完全一人デー</div>
+        <div class="ev S">設計・インプット専念</div>
+        <div class="ev Z">サムネ制作・告知整理</div>
+        <div class="ev Z">UNI動画納品</div>
+        <div class="ev I">最終発注・生産連絡</div>
+        <div class="ev I">リモート実務</div>
+      </div>
+    </div>
+
+    <div class="day-col thu">
+      <div class="day-head">Thu</div>
+      <div class="day-events">
+        <div class="ev A">9:00 始業・朝礼</div>
+        <div class="ev Z">サムネ最終完成</div>
+        <div class="ev Z">PRY動画納品</div>
+        <div class="ev Z">VLOG撮影（隔週）</div>
+        <div class="ev I">SR MTG / CO MTG</div>
+        <div class="ev I">ボード再設計</div>
+      </div>
+    </div>
+
+    <div class="day-col fri">
+      <div class="day-head">Fri</div>
+      <div class="day-events">
+        <div class="ev A">9:00 始業・朝礼</div>
+        <div class="ev A">週の締め日</div>
+        <div class="ev Z">PRY動画・ページ公開</div>
+        <div class="ev Z">UNI市場調査・撮影</div>
+        <div class="ev I">来週スケジュール確認</div>
+        <div class="ev I">アーカイブカタログ進行</div>
+      </div>
+    </div>
+
+    <div class="day-col sat">
+      <div class="day-head">Sat</div>
+      <div class="day-events">
+        <div class="ev S">撮影（12時〜）</div>
+        <div class="ev Z">告知予約・素材整理</div>
+        <div class="ev A">POPUP開催時</div>
+      </div>
+    </div>
+
+    <div class="day-col sun">
+      <div class="day-head">Sun</div>
+      <div class="day-events">
+        <div class="ev Z">自動配信確認のみ</div>
+        <div class="ev A">チーム休日</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 04 CUSTOMER TORUS -->
+<!-- ================================================================ -->
+<div class="sec">
+  <div class="sec-head">04 — Customer Torus / 顧客循環モデル</div>
+  <div class="torus-wrap">
+    <div class="torus-nodes">
+      <div class="torus-node">
+        <div class="torus-n">01</div>
+        <div class="torus-title">購入（零点通過）</div>
+        <div class="torus-desc">月曜LIVE受注でPRYの循環へ入環。毎週の受注リズムが循環速度を維持する。</div>
+      </div>
+      <div class="torus-node">
+        <div class="torus-n">02</div>
+        <div class="torus-title">開封・着用・発信</div>
+        <div class="torus-desc">商品到着後、着用体験・SNS投稿でエネルギーが外へ放射。PRYのリーチが拡大。</div>
+      </div>
+      <div class="torus-node">
+        <div class="torus-n">03</div>
+        <div class="torus-title">YouTube再視聴・期待</div>
+        <div class="torus-desc">次作期待とYouTubeの継続視聴。PRY哲学が深化し、紹介衝動が生まれる。</div>
+      </div>
+      <div class="torus-node">
+        <div class="torus-n">04</div>
+        <div class="torus-title">次のLIVE → 再購入</div>
+        <div class="torus-desc">購入衝動が高まり次のLIVEへ。循環が一周。ティアが上がるほど単価・頻度が増大。</div>
+      </div>
+    </div>
+    <div class="torus-arrow">→ → → Torus Cycle / 循環 → → →</div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 05 KEY METRICS -->
+<!-- ================================================================ -->
+<div class="sec">
+  <div class="sec-head">05 — Key Metrics / 主要指標</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-v">60%</div>
+      <div class="kpi-l">リピート率 目標</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">30–40%</div>
+      <div class="kpi-l">原価率</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">¥0</div>
+      <div class="kpi-l">広告費<br>（YouTube主軸）</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">54,600</div>
+      <div class="kpi-l">YouTubeチャンネル<br>登録者</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">12–18%</div>
+      <div class="kpi-l">LIVE→購入<br>転換率 目標</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">95%+</div>
+      <div class="kpi-l">納期遵守率 目標</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">3%</div>
+      <div class="kpi-l">EC CVR 目標</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">25%+</div>
+      <div class="kpi-l">N→R転換率<br>（12ヶ月）目標</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">80%+</div>
+      <div class="kpi-l">完パケ率<br>（Zastin KPI）</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-v">+5%</div>
+      <div class="kpi-l">3回購入者数<br>前月比（Issei KPI）</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
